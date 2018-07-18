@@ -1,0 +1,61 @@
+.jstree-input-wrapper {
+	width: 100%;
+  border-top:1px solid #d2dff0;
+  border-bottom:1px solid #d2dff0;
+  padding:5px 4px;
+  
+  .input {
+    border:1px solid #b9cce4;
+    width: 80.5%;
+  }
+  .btn {
+    float: right;
+    background: #d9eafb;
+    color: #2e6296;
+    border-color: #b9cce4;
+  }
+}
+.jstree-wrapper {
+  margin: 5px 0 0 5px;
+  overflow: auto;
+  height: calc(100% - 55px);
+}
+
+.jstree-wrapper::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+  background-color: #d6dde2;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+
+.jstree-wrapper::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  background-color: #d6dde2;
+}
+
+/*定义滑块 内阴影+圆角*/
+
+.jstree-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  background-color: #4c89b6;
+}
+@media screen and (max-width: 1393px) {
+  .input {
+    width: 76.5% !important;
+  }
+}
+
+@media screen and (max-width: 1212px) {
+  .input {
+    width: 73.5% !important;
+  }
+}
+
+@media screen and (max-width: 1099px) {
+  .input {
+    width: 67.5% !important;
+  }
+}
