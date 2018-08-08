@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>线图</title>
+	<style>
+		*{margin:0;padding:0;}
+		#container{width: 500px; height: 250px;}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+	<script src="d3.v5.js" charset="utf-8"></script>
+	<script>
+		var margin = {left:50,top:30,right: 20,bottom:20}
+		,data = [4,3,2,31,5,6,3,21,46,8,9]
+		,gw = 500 - 70,
+		gh = 250 - 50
+		var svg = d3.select('#container').append('svg').attr('width', 500).attr('height', 250)
+		var g = d3.select('svg').append('g').attr('transform', `translate(${margin.left},${margin.top})`)
+
+		var scale_x =d3.scaleLinear()
+		.domain([0, data.length-1])
+		.range([0, gw])
+		var scale_y =d3.scaleLinear()
+		.domain([0, Math.max(...data)])
+		.range([gh, 0])
+		var line_g = d3.line().x(function(d,i){return scale_x(i)}).y(function(d){return scale_y(d)}).curve(d3.curveCardinal)
+		g.append('path').attr('d', line_g(data))
+		.attr('fill', 'none')
+		.attr('stroke', 'steelblue')
+		.attr('stroke-width', '2')
+
+		
+
+		var x_axis = d3.axisBottom().scale(scale_x)
+		var y_axis = d3.axisLeft().scale(scale_y)
+
+		g.append('g').call(x_axis).attr('transform', `translate(0, ${gh})`)
+		
+		g.append('g').call(y_axis)
+		.append('text')
+		.text('Price($)')
+		.attr('fill', 'red')
+		.attr('font-size', '14')
+		.attr('transform', 'rotate(-90)')
+		.attr('text-anchor', 'end')
+		.attr('dy', '1em')
+	</script>
+</body>
+</html>

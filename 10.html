@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>垂直柱状图</title>
+	<style>
+		*{margin:0;padding:0;}
+		#container {
+			margin-left: 100px;
+			margin-top: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+	<script src="d3.v5.js" charset="utf-8"></script>
+	<script>
+		var width = 1000,
+		height = 500,
+		margin = 30,
+		data = [4,3,31,6,21,46,8,9],
+		pop = [1991,1992,1993,1994,1995,1996,1997,1998],
+		bw = 50,
+		bpadding = 5,
+		svgw = width + margin * 2
+		var svg = d3.select('#container').append('svg').attr('width', svgw).attr('height', height + margin * 2)
+
+		var scale_y =d3.scaleLinear()
+					   .domain([0, d3.max(data)])
+					   .range([height, 0])
+
+		var scale_x = d3.scaleBand()
+						.domain(pop)
+						.range([0,width])
+						.padding(.1)
+		var chart = svg.append('g')
+					  .attr('transform',  'translate(30, 30)')
+		var bar = chart.selectAll('g')
+				   .data(data)
+				   .enter()
+				   .append('g')
+				   .attr('transform', function (d, i) {
+				   		return `translate(${scale_x.bandwidth() * i}, 0)`
+				   })
+		   bar.append('rect')
+		   	.attr("y", function (d) { return scale_y(d)})
+		    .attr("width", scale_x.bandwidth() -20)
+		    .attr("height", function (d) {return height-scale_y(d)})
+		    .attr('fill', 'steelblue')
+		   bar.append('text')
+		   	  .text(function (d) {return d;})
+		   	  .attr("x", scale_x.bandwidth() / 2)
+		   	  .attr("y", function(x) {return scale_y(x)})
+		   	  .attr("dy", 15)
+		   	  .attr("text-anchor", "middle")
+		   	  .attr("fill", "white")
+	</script>
+</body>
+</html>

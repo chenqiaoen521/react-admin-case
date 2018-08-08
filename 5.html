@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="d3.v5.js"></script>
+</head>
+<body>
+	<script>
+		window.onload = function () {
+			var dataset = [50, 43, 120, 87, 99, 167, 142];  // 数据集
+			var width = 400;    // svg可视区域宽度
+			var height = 400;   // svg可视区域高度
+			var svg = d3.select("body")
+			            .append("svg")      // 在body中添加SVG
+			            .attr("width", width)
+			            .attr("height", height);
+			var padding = {top: 20, right: 20, bottom: 20, left: 20};   // 边距
+			var rectStep = 35;  // 矩形所占宽度(包括空格)
+			var rectWidth = 30; // 矩形所占宽度(不包括空格)
+			var rect = svg.selectAll("rect")
+				        .data(dataset)          // 绑定数据
+				        .enter()                // 获取enter部分
+				        .append("rect")         // 添加rect元素,使其与绑定数组的长度一致
+				        .attr("fill", "steelblue")
+				        .attr("x", function(d, i){
+				            return padding.left + i * rectStep;
+				        })
+				        .attr("y", function(d){
+				            return height - padding.bottom - d;
+				        })
+				        .attr("width", rectWidth)
+				        .attr("height", function(d){
+				            return d;
+				        });
+			var text = svg.selectAll("text")
+				        .data(dataset)          // 绑定数据
+				        .enter()                // 获取enter部分
+				        .append("text")         // 添加text元素,使其与绑定数组的长度一致
+				        .attr("fill", "white")
+				        .attr("font-size", "14px").attr("text-anchor", "middle")
+				        .attr("x", function(d, i){
+				            return padding.left + i * rectStep;
+				        })
+				        .attr("y", function(d){
+				            return height - padding.bottom - d;
+				        })
+				        .attr("dx", rectWidth/2).attr("dy", "1em")
+				        .text(function(d){
+				            return d;
+				        });
+		}
+	</script>
+</body>
+</html>

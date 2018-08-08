@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>水平柱状图</title>
+	<style>
+		*{margin:0;padding:0;}
+		#container {
+			margin-left: 100px;
+			margin-top: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+	<script src="d3.v5.js" charset="utf-8"></script>
+	<script>
+		var margin = {left:50,top:30,right: 20,bottom:20}
+		,data = [4,3,31,6,21,46,8,9]
+		bh = 50,
+		bpadding = 5,
+		svgh = (bh + bpadding) * data.length
+		var svg = d3.select('#container').append('svg').attr('width', 500).attr('height', svgh)
+
+		var scale_x =d3.scaleLinear()
+		.domain([0, d3.max(data)])
+		.range([0, 500])
+
+
+		var bar = svg.selectAll('g')
+				   .data(data)
+				   .enter()
+				   .append('g')
+				   .attr('transform', function (d, i) {
+				   		return `translate(0, ${i * (bh + bpadding)})`
+				   })
+				   
+		   bar.append('rect')
+		    .attr("width", function (d) {return scale_x(d)})
+		    .attr("height", bh)
+		    .attr('fill', 'steelblue')
+		   bar.append('text')
+		   	  .text(function (d) {return d;})
+		   	  .attr("x", function(x) {return scale_x(x)})
+		   	  .attr("y", bh / 2)
+		   	  .attr("text-anchor", "end")
+		   	  .attr("fill", "white")
+	</script>
+</body>
+</html>

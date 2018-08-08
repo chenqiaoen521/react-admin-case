@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+	*{margin:0; padding:0;}
+	.target {
+    height: 120px;
+    max-width: 200px;
+    filter: url(#goo);
+    text-align: center;
+    position: relative;
+}
+.share {
+    display: block;
+    width: 64px;
+    line-height: 64px;
+    background-color: #cd0000;
+    color: #fff;
+    border-radius: 50%;
+    margin: auto;
+    position: relative;
+    z-index: 1;
+}
+[type="checkbox"] {
+    position: absolute;
+    clip: rect(0 0 0 0);
+}
+[class*="icon-share-"] {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background-color: #cd0000;
+    border-radius: 50%;
+    transition: transform .5s;
+    top: 8px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    -ms-transform: scale(0.5);
+    transform: scale(0.5);
+}
+:checked + .target .icon-share-weibo { 
+    transform: scale(1) translate(-70px, 60px);    
+}
+:checked + .target .icon-share-wechat {  
+    transform: scale(1) translate(0, 75px);    
+}
+:checked + .target .icon-share-qq {
+    transform: scale(1) translate(70px, 60px);    
+}
+:checked + .target .share {
+    animation: jello 1s;
+}
+svg {
+	position: absolute;
+}
+</style>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div style="margin-top:100px;margin-left:100px;position: relative;">
+		<svg width="0" height="0">
+		  <defs>
+		    <filter id="goo">
+		      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+		      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+		      <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+		    </filter>
+		  </defs>
+		</svg>
+		<input type="checkbox" id="share">
+		<div class="target">
+		    <label class="share" for="share">分享</label>
+		    <span class="icon-share-weibo">aaa</span>
+		    <span class="icon-share-wechat">bbb</span>
+		    <span class="icon-share-qq">ccc</span>
+		</div>
+	</div>
+</body>
+</html>
